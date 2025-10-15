@@ -48,9 +48,7 @@
 # :: FILE SYSTEM
   FROM alpine AS file-system
   COPY --from=util / /
-  ARG APP_ROOT \
-      APP_VERSION
-  USER root
+  ARG APP_ROOT
 
   RUN set -ex; \
     eleven mkdir /distroless${APP_ROOT}/{etc};
