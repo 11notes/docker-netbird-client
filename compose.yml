@@ -1,0 +1,31 @@
+name: "netbird"
+
+x-lockdown: &lockdown
+  # prevents write access to the image itself
+  read_only: true
+  # prevents any process within the container to gain more privileges
+  security_opt:
+    - "no-new-privileges=true"
+
+services:
+  client:
+    image: "11notes/netbird-client:0.59.6"
+    <<: *lockdown
+    environment:
+      TZ: "Europe/Zurich"
+      NETBIRD_PEER_NAME: "docker"
+      NETBIRD_URL: "${NETBIRD_URL}"
+      NETBIRD_SETUP_KEY: "${NETBIRD_SETUP_KEY}"
+    volumes:
+      - "netbird.etc:/netbird/etc"
+    tmpfs:
+      - "/run:uid=1000,gid=1000"
+    networks:
+      frontend:
+    restart: "always"
+
+volumes:
+  netbird.etc:
+
+networks:
+  frontend:
