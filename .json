@@ -3,7 +3,7 @@
   "name": "netbird-client",
   "root": "/netbird",
   "semver": {
-    "version": "0.59.10"
+    "version": "0.59.11"
   },
   "readme": {
     "description": "Run netbird client rootless.",
