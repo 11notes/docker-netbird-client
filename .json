@@ -6,12 +6,11 @@
     "version": "0.60.2"
   },
   "readme": {
-    "description": "Run netbird client rootless.",
+    "description": "run netbird client",
     "introduction": "[NetBird](https://github.com/netbirdio/netbird) (created by [netbird](https://github.com/netbirdio)) combines a WireGuard-based overlay network with Zero Trust Network Access, providing a unified open source platform for reliable and secure connectivity. Create your own selfhosted ZTNA mesh network.",
     "built": {
       "netbirdio/netbird": "https://github.com/netbirdio/netbird"
     },
-    "distroless": true,
     "comparison": {
       "images": [
         "netbirdio/netbird"

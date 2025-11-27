@@ -23,10 +23,6 @@
       BUILD_BIN
 
   RUN set -ex; \
-    apk --update --no-cache add \
-      libcap;
-
-  RUN set -ex; \
     eleven git clone ${BUILD_SRC} v${APP_VERSION}; \
     sed -i 's/"development"/"v'${APP_VERSION}'"/' /go/netbird/version/version.go;
 
@@ -85,19 +81,16 @@
         HOME=${APP_ROOT}/etc \
         NB_STATE_DIR=${APP_ROOT}/etc \
         NB_CONFIG=${APP_ROOT}/etc/client.json \
-        NB_USE_NETSTACK_MODE="true" \
-        NB_ENABLE_NETSTACK_LOCAL_FORWARDING="true" \
-        NB_DAEMON_ADDR="unix:///run/netbird.sock" \
-        USER=${APP_UID}
+        NB_DAEMON_ADDR="unix:///run/netbird.sock"
 
   # :: multi-stage
     COPY --from=build /distroless/ /
-    COPY --from=file-system --chown=${APP_UID}:${APP_GID} /distroless/ /
+    COPY --from=file-system /distroless/ /
     COPY --from=entrypoint /distroless/ /
 
 # :: PERSISTENT DATA
   VOLUME ["${APP_ROOT}/etc"]
 
 # :: EXECUTE
-  USER ${APP_UID}:${APP_GID}
+  USER 0:0
   ENTRYPOINT ["/usr/local/bin/entrypoint"]

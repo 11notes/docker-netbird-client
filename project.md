@@ -1,12 +1,10 @@
-${{ content_synopsis }} This image will run the Netbird client as a container [rootless](https://github.com/11notes/RTFM/blob/main/linux/container/image/rootless.md). Generating a [setup key](https://docs.netbird.io/how-to/register-machines-using-setup-keys) is all you need to do.
+${{ content_synopsis }} This image will run the Netbird client as a container. Generating a [setup key](https://docs.netbird.io/how-to/register-machines-using-setup-keys) is all you need to do.
 
 ${{ content_uvp }} Good question! Because ...
 
 ${{ github:> [!IMPORTANT] }}
-${{ github:> }}* ... this image runs [rootless](https://github.com/11notes/RTFM/blob/main/linux/container/image/rootless.md) as 1000:1000
 ${{ github:> }}* ... this image is auto updated to the latest version via CI/CD
 ${{ github:> }}* ... this image has a health check
-${{ github:> }}* ... this image runs read-only
 ${{ github:> }}* ... this image is automatically scanned for CVEs before and after publishing
 ${{ github:> }}* ... this image is created via a secure and pinned CI/CD process
 ${{ github:> }}* ... this image is very small
@@ -34,4 +32,4 @@ ${{ content_tips }}
 
 ${{ title_caution }}
 ${{ github:> [!CAUTION] }}
-${{ github:> }}* This image is rootless and runs in userspace (not kernel space). Use this image as an **exit node** or attach to another container to expose that container via Netbird
+${{ github:> }}* This image must run as root and will require the wireguard module being loaded in the host’s kernel. If you don’t need a full client but only an exit node or a side car container, use [11notes/ netbird-exit-node](https://github.com/11notes/docker-netbird-exit-node) which is [rootless](https://github.com/11notes/RTFM/blob/main/linux/container/image/rootless.md)
