@@ -3,7 +3,7 @@
   "name": "netbird-client",
   "root": "/netbird",
   "semver": {
-    "version": "0.60.4"
+    "version": "0.60.5"
   },
   "readme": {
     "description": "run netbird client",
