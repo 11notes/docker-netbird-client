@@ -72,6 +72,9 @@ jobs:
                       }else if(!job.inputs?.tag){
                         core.setFailed(`input does not contain valid git tag: ${inspect(job.inputs, {showHidden:false, depth:null, colors:true})}`);
                       }
+                      if(job.inputs?.version === 'null'){
+                        core.setFailed(`input version is set to null: ${inspect(job.inputs, {showHidden:false, depth:null, colors:true})}`);
+                      }
                     }catch(e){
                       core.setFailed(`could not parse github.event.inputs.etc: ${n.etc} (${Buffer.from(n.etc, 'base64').toString('ascii')})`);
                     }
