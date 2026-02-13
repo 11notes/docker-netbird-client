@@ -12,7 +12,7 @@ x-lockdown: &lockdown
 
 services:
   client:
-    image: "11notes/netbird-client:0.64.5"
+    image: "11notes/netbird-client:0.64.6"
     <<: *lockdown
     environment:
       TZ: "Europe/Zurich"
