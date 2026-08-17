@@ -6,17 +6,18 @@
       APP_GID=1000 \
       BUILD_SRC=netbirdio/netbird.git \
       BUILD_ROOT="/go/netbird/client" \
-      GO_VERSION=1.25
+      APP_GO_VERSION=0
   ARG BUILD_BIN=${BUILD_ROOT}/netbird
 
 # :: FOREIGN IMAGES
   FROM 11notes/util AS util
+  FROM 11notes/distroless:iptables AS distroless-ipables
 
 # ╔═════════════════════════════════════════════════════╗
 # ║                       BUILD                         ║
 # ╚═════════════════════════════════════════════════════╝
 # :: NETBIRD
-  FROM 11notes/go:${GO_VERSION} AS build
+  FROM 11notes/go:${APP_GO_VERSION} AS build
   ARG APP_VERSION \
       BUILD_SRC \
       BUILD_ROOT \
@@ -32,7 +33,7 @@
     eleven distroless ${BUILD_BIN};
 
 # :: ENTRYPOINT
-  FROM 11notes/go:${GO_VERSION} AS entrypoint
+  FROM 11notes/go:${APP_GO_VERSION} AS entrypoint
   COPY ./build /
   ARG BUILD_BIN=/go/netbird/entrypoint
 
@@ -85,6 +86,7 @@
 
   # :: multi-stage
     COPY --from=build /distroless/ /
+    COPY --from=distroless-ipables / /
     COPY --from=file-system /distroless/ /
     COPY --from=entrypoint /distroless/ /
 

@@ -12,19 +12,24 @@ x-lockdown: &lockdown
 
 services:
   client:
-    image: "11notes/netbird-client:0.64.5"
+    image: "11notes/netbird-client:0.77.0"
     <<: *lockdown
     environment:
       TZ: "Europe/Zurich"
       NETBIRD_PEER_NAME: "docker-client"
       NETBIRD_URL: "${NETBIRD_URL}"
       NETBIRD_SETUP_KEY: "${NETBIRD_SETUP_KEY}"
+    devices:
+      - "/dev/net/tun"
     volumes:
       - "netbird-client.etc:/netbird/etc"
     tmpfs:
       - "/run:uid=1000,gid=1000"
     networks:
       frontend:
+    sysctls:
+      net.ipv4.ip_forward: "1"
+      net.ipv6.conf.all.forwarding: "1"
     restart: "always"
 
 volumes:
